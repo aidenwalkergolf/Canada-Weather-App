@@ -56,13 +56,13 @@ def _display_card(location, weather, units, theme):
             color: {text_color};
             padding: 15px;
             border-radius: 12px;
-            font-size: 10px;
+            font-size: 11px;
             line-height: 1.4;
             height: 260px;
             text-align: center;
             margin-bottom: 20px;
         ">
-            <p style="margin-bottom: 8px; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; font-weight: bold;">{location}</p>
+            <p style="margin-bottom: 8px; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; font-weight: bold;">{location}</p>
             <div style="background:{icon_bg}; padding:5px; border-radius:8px; display:inline-block;">
                 <img src="http://openweathermap.org/img/wn/{icon_code}@2x.png" width="40"/>
             </div>
@@ -102,13 +102,13 @@ def _display_forecast_row(forecast_data, units, theme):
                     color: {text_color};
                     padding: 15px;
                     border-radius: 12px;
-                    font-size: 10px;
+                    font-size: 11px;
                     line-height: 1.4;
                     height: 260px;
                     text-align: center;
                     margin-bottom: 20px;
                 ">
-                    <p style="margin: 0 auto 8px auto; font-size: 10px; font-weight: bold; text-align: center;">{weekday}</p>
+                    <p style="margin: 0 auto 8px auto; font-size: 11px; font-weight: bold; text-align: center;">{weekday}</p>
                     <div style="background:{icon_bg}; padding:5px; border-radius:8px; display:inline-block;">
                         <img src="http://openweathermap.org/img/wn/{icon_code}@2x.png" width="40"/>
                     </div>
