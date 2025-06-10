@@ -62,7 +62,7 @@ def _display_card(location, weather, units, theme):
             text-align: center;
             margin-bottom: 20px;
         ">
-            <p style="margin-bottom: 8px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; font-weight: bold;">{location}</p>
+            <p style="margin-bottom: 8px; font-size: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; font-weight: bold;">{location}</p>
             <div style="background:{icon_bg}; padding:5px; border-radius:8px; display:inline-block;">
                 <img src="http://openweathermap.org/img/wn/{icon_code}@2x.png" width="40"/>
             </div>
