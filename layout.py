@@ -2,6 +2,19 @@ import streamlit as st
 from utils import get_unit_label
 from datetime import datetime
 
+# === Wind speed conversion helper ===
+def convert_wind_speed(speed, units):
+    if units == "imperial":
+        # Already in mph, do NOT convert
+        return round(speed), "mph"
+    elif units == "metric":
+        # Convert m/s to km/h
+        return round(speed * 3.6), "km/h"
+    else:
+        return round(speed), "m/s"
+
+
+
 def display_main_ui(data, user_city_data, units, theme):
     if st.session_state.forecast_days == 1:
         # 1-day layout: individual cards
@@ -15,7 +28,7 @@ def display_main_ui(data, user_city_data, units, theme):
             st.markdown(f"### {loc}")
             forecast = user_city_data.get(loc)
             if forecast:
-                _display_forecast_row(forecast, units,theme)
+                _display_forecast_row(forecast, units, theme)
             else:
                 st.warning("Forecast unavailable.")
 
@@ -34,6 +47,8 @@ def _display_card(location, weather, units, theme):
         st.warning("Weather data unavailable.")
         return
 
+    wind_converted, wind_unit = convert_wind_speed(wind, units)
+
     st.markdown(
         f"""
         <div style="
@@ -47,14 +62,14 @@ def _display_card(location, weather, units, theme):
             text-align: center;
             margin-bottom: 20px;
         ">
-            <p style="margin-bottom: 8px; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; font-weight: bold;">{location}</p>
+            <p style="margin-bottom: 8px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; font-weight: bold;">{location}</p>
             <div style="background:{icon_bg}; padding:5px; border-radius:8px; display:inline-block;">
                 <img src="http://openweathermap.org/img/wn/{icon_code}@2x.png" width="40"/>
             </div>
             <p style="margin: 5px 0;">{description}</p>
             <p><strong>Temp:</strong> {temp} {get_unit_label(units)}</p>
             <p><strong>Humidity:</strong> {humidity}%</p>
-            <p><strong>Wind:</strong> {wind} m/s</p>
+            <p><strong>Wind:</strong> {wind_converted} {wind_unit}</p>
         </div>
         """,
         unsafe_allow_html=True
@@ -77,6 +92,8 @@ def _display_forecast_row(forecast_data, units, theme):
         humidity = day.get("humidity", "-")
         weekday = datetime.fromtimestamp(day["dt"]).strftime('%A')
 
+        wind_converted, wind_unit = convert_wind_speed(wind, units)
+
         with cols[i]:
             st.markdown(
                 f"""
@@ -98,7 +115,7 @@ def _display_forecast_row(forecast_data, units, theme):
                     <p style="margin: 5px 0;">{description}</p>
                     <p><strong>Temp:</strong> {temp} {get_unit_label(units)}</p>
                     <p><strong>Humidity:</strong> {humidity}%</p>
-                    <p><strong>Wind:</strong> {wind} m/s</p>
+                    <p><strong>Wind:</strong> {wind_converted} {wind_unit}</p>
                 </div>
                 """,
                 unsafe_allow_html=True
